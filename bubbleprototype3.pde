@@ -29,7 +29,7 @@ ArrayList<String> names = new ArrayList();
 void setup() {
 
   fullScreen();
-  frameRate(10);
+  frameRate(6);
   loadImgs();
   PFont bangers = createFont("Bangers.ttf", 24);
   textFont(bangers);
@@ -114,7 +114,40 @@ boolean vowel(String n) {
   return false;
 }
 
-void bubbles(int h, String n, String name) {
+void subtleBubbles(int h, String n) {
+   float tr = map(("LGBTQ+" + n).hashCode(), -2147483648, 2147483647, 100,200);
+
+  fill(0,0,0,tr);
+ 
+  int index;
+  float x, y;
+  if (h >= 0 ) {
+    index = abs(h)%imgs.length;
+    img = imgs[index].copy();
+  } else {
+    index = abs(h)%imgs.length;
+    img = blurred_imgs[index].copy();
+  }
+  float ii = hashMap(h, 0.25, 0.75);
+  if (n.length() % 2 == 0) {
+
+    img.resize(int(img.width*ii), int(img.height*ii)); 
+    x = hpos(h, 0, width)-img.width/2;
+    y = vpos(h, -100, height)-img.height/2;
+    image(img, x, y);
+  } else {
+      pushMatrix();
+
+    scale(-1, 1);
+    img.resize(int(img.width*ii), int(img.height*ii)); 
+    popMatrix();
+    x = hpos(h,0,width) - img.width/2;
+    y = vpos(h, -100, height)-img.height/2;
+    image(img, x, y);
+  }
+}
+
+void conspicuousBubbles(int h, String n, String name) {
   float tr = map(("LGBTQ+" + n).hashCode(), -2147483648, 2147483647, 100,200);
 
   fill(0,0,0,tr);
@@ -248,9 +281,12 @@ void draw() {
   int h = name.hashCode();
   String[] letters = name.split("");
   for(int j = 0; j < letters.length - 1; j++) {
-     bubbles((letters[j]+letters[j+1]).hashCode(), letters[j] + letters[j+1], letters[j]);
   if(newName != "") {
+    conspicuousBubbles((letters[j]+letters[j+1]).hashCode(), letters[j] + letters[j+1], letters[j]);
     showLetters(letters[j], letters[j].hashCode());
+  } else {
+    subtleBubbles((letters[j]+letters[j+1]).hashCode(), letters[j] + letters[j+1]);
+
   }
  
 }

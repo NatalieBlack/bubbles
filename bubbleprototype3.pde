@@ -221,7 +221,7 @@ void bubblesRepeat(int h, String n, String name){
 
 void showLetters(String l, int h) {
   float ii = hashMap(h, 0.25, 1.5);
-  textSize(24*ii);
+  textSize(48*ii);
   text(l, hpos(h, 0, width), vpos(h, 0, height));
 }
 
@@ -298,7 +298,7 @@ void draw() {
 void newNameAction(int h) {
    nameCount++;
     bubblesRepeat(h+nameCount, name, "");
-    nameCount = nameCount % 11;
+    nameCount = nameCount % 21;
 
     if(nameCount == 0) {
       newName = "";

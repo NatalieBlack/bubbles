@@ -26,6 +26,17 @@ color[] colours = {#0a1c20, #41a6de, #fedb0e, #f6343c, #471BAE, #FF6C41, #FFCB41
 
 ArrayList<String> names = new ArrayList();
 
+void seedNames() {
+  try {
+   BufferedReader br = new BufferedReader(new FileReader(dataPath("pulse")));
+   String line;
+   while ((line = br.readLine()) != null) {
+      names.add(line);
+   }    
+  } catch (IOException e) {
+    println("io error");
+  }
+}
 void setup() {
 
   fullScreen();
@@ -34,11 +45,7 @@ void setup() {
   PFont bangers = createFont("Bangers.ttf", 24);
   textFont(bangers);
   textAlign(CENTER, CENTER);
-  String[] seednames = {"Samira Wiley", "Alan Turing", "Laura Jane Grace", "Sara Quin", "Tegan Quin", "Kristen Stewart", "Tyler Oakley", "Hannah Hart", "Chris Colfer", "Helen Marukh", "Korey Kuhl", "Ingrid Nilsen", "Troye Sivan", "Neil Patrick Harris", "Kathryn Moenig", "Ellen Degeneres", "Ellen Page"};
-  for(int i = 0; i < seednames.length; i++) {
-    names.add(seednames[i]);
-  }
-  
+  seedNames();  
   File cfg = new File(dataPath("config.txt"));
   try {
    BufferedReader br = new BufferedReader(new FileReader(dataPath("config.txt")));

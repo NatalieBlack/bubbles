@@ -122,6 +122,9 @@ boolean vowel(String n) {
 }
 
 void subtleBubbles(int h, String n) {
+  if(random(8) > 2) {
+    return;
+  }
    float tr = map(("LGBTQ+" + n).hashCode(), -2147483648, 2147483647, 100,200);
 
   fill(0,0,0,tr);
@@ -151,7 +154,7 @@ void subtleBubbles(int h, String n) {
     x = hpos(h,0,width) - img.width/2;
     y = vpos(h, -100, height)-img.height/2;
     image(img, x, y);
-  }
+  } 
 }
 
 void conspicuousBubbles(int h, String n, String name) {
@@ -305,7 +308,7 @@ void draw() {
 void newNameAction(int h) {
    nameCount++;
     bubblesRepeat(h+nameCount, name, "");
-    nameCount = nameCount % 21;
+    nameCount = nameCount % 51;
 
     if(nameCount == 0) {
       newName = "";
